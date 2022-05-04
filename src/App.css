@@ -1,0 +1,14 @@
+.appContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bestPostContainer{
+  display: flex;
+  flex-direction: row;  
+  justify-content: space-around;
+  width: 50%;
+}
+.disabled{
+  opacity: 0.3;
+}

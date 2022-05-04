@@ -1,0 +1,22 @@
+.pagination {
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginationItem {
+    display: block;
+    margin-right: 0.5em;
+}
+
+
+.paginationButton {
+    color: grey;
+}
+
+.currentPage {
+    color: blue;
+    font-weight: 700;
+}

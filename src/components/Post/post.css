@@ -1,0 +1,7 @@
+.postContent{
+    display: flex;
+    flex-direction: row;
+}
+.disabled{
+    opacity: 0.2;
+}

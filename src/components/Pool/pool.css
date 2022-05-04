@@ -1,0 +1,4 @@
+.poolContainer{
+    display: flex;
+    flex-direction: column;
+}
