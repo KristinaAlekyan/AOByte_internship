@@ -21,9 +21,7 @@ class BestPosts extends React.Component {
         e.preventDefault();
         const { posts } = this.props;
         const updatedList = [...this.state.list];
-        console.log('posts', posts)
         const maximumRatePost = findMaxRatePost(posts);
-        console.log('maximumRatePost', maximumRatePost)
         if (!maximumRatePost) {
             return;
         }
@@ -54,30 +52,30 @@ class BestPosts extends React.Component {
         this.setState({ sort: !this.state.sort });
     }
 
+
     render() {    
         const sortedList = sortPostsList(this.state);
+
         return (
             <div className='bestPostsContainer'>                
                 <button
                     type = "button"
                     className = 'btn'
-                    onClick={this.sort}
+                    onClick = {this.sort}
                 >
                     {this.state.sort? <span><BsFillArrowUpCircleFill/></span> : <span><BsFillArrowDownCircleFill/></span>}
                 </button>
                 
-                <button onClick={this.addList}>+</button>
+                <button onClick = {this.addList}>+</button>
                 <ListGroup  as = "ul" className = 'd-flex flex-column justify-content-between'>
-                    {sortedList.map(post =>                                                               
-                    
-                        <ListGroup.Item as = "li" className="d-flex flex-row ">   
+                    {sortedList.map(post =>                     
+                        <ListGroup.Item key = {post.id} as = "li" className = "d-flex flex-row ">   
                             <div className = "m-1">{post.post_title}</div>
-                            <div className="m-1">{post.rate}</div>                            
-                            <button onClick={() => this.deletPost(post.id)}> <BsFillCartXFill/></button>
+                            <div className = "m-1">{post.rate}</div>                            
+                            <button onClick = {() => this.deletPost(post.id)}> <BsFillCartXFill/></button>
                         </ListGroup.Item>
                     )}
-                </ListGroup>
-                                
+                </ListGroup>                                
             </div>
         )
     }

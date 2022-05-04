@@ -6,13 +6,20 @@ import "./post.css";
 import Comment from "../Comment/Comment";
 
 class Post extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            list:[],
+            sort: false
+        }
+    }
     render() { 
         const {id,post_title,comments, disabled } = this.props;
 
         return (
-            <div className={ disabled ? 'postContent disabled' : 'postContent'}>
-                <ListGroup as="ul" >
-                    <ListGroup.Item as="li" className="d-flex flex-row ">
+            <div className = { disabled ? 'postContent disabled' : 'postContent'}>
+                <ListGroup as = "ul" >
+                    <ListGroup.Item as = "li" className = "d-flex flex-row ">
                         <div className ="bg-light border m-1">{id}</div>
                         <div className ="m-1">{post_title}</div>
                     </ListGroup.Item>
@@ -27,6 +34,7 @@ class Post extends React.Component {
                         />
                         )
                     } 
+                    <input/>
                 </div>
             </div>            
         )

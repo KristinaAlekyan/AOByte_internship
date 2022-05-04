@@ -12,7 +12,7 @@ class App extends  React.Component {
         this.state = {
             posts : [],
             currentPage: 1,
-            postsPerPage: 2,
+            postsPerPage: 5,
             searchText: ''
         }
     }
@@ -21,7 +21,7 @@ class App extends  React.Component {
         this.setState({ currentPage: pageNumber }); 
     }
 
-    componentDidMount() {
+    componentDidMount() {        
         this.setState({ posts: postsdata });
     }
 
@@ -29,7 +29,7 @@ class App extends  React.Component {
         const updatedPosts = this.state.posts.map(post => {
             return (post.id === id) ? { ...post, disabled: !post.disabled } : post
         });
-        this.setState({ posts: [...updatedPosts] });
+        this.setState({ posts: updatedPosts });
     }
 
     search = (e) => {
@@ -37,8 +37,9 @@ class App extends  React.Component {
     }
 
     
-    render(){         
+    render(){
         const postsWithAvarageRate = addAverageRate(this.state.posts);
+         
         const searchedPostsOrComments = getSearchedPosts(postsWithAvarageRate, this.state.searchText);
         const currentPosts = getCurrentPosts(
             this.state.currentPage,
@@ -60,14 +61,12 @@ class App extends  React.Component {
                 />               
 
                 <div className = "bestPostContainer">          
-                    <BestPosts       
-                        key="1"   
-                        posts = {this.state.posts}                  
+                    <BestPosts  
+                        posts = {currentPosts}                  
                         disablePost ={this.disablePost}
                     />
                     <BestPosts
-                        key="2" 
-                        posts = {this.state.posts}                  
+                        posts = {currentPosts}                  
                         disablePost ={this.disablePost}
                     />  
                 </div>       

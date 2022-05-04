@@ -3,10 +3,7 @@ import './search.css';
 const Search = ({ searchText, search }) => {
     return (
         <section >
-            <label >
-                Search :
-            </label>
-            
+            <label >Search :</label>
             <input
                 id = "search"
                 value = {searchText}

@@ -1,7 +1,6 @@
 import './pagination.css';
 
 const Pagination = ({ postsPerPage, totalPostsQuantity, currentPage, changePage }) => {
-
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalPostsQuantity / postsPerPage); i++) {
