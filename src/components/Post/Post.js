@@ -1,42 +1,45 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import ListGroup from 'react-bootstrap/ListGroup';
 
 import "./post.css";
-import Comment from "../Comment/Comment";
+import Comments from "../Comments/Comments";
 
 class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list:[],
-            sort: false
+            comment: ''
         }
     }
+    addNewComment = (id, comment) => {
+        this.props.addComment(id, comment);
+
+        this.setState({
+            comment: ''
+        });
+    }
     render() { 
-        const {id,post_title,comments, disabled } = this.props;
+        const {id, post_title, comments, disabled } = this.props.post;
 
         return (
-            <div className = { disabled ? 'postContent disabled' : 'postContent'}>
-                <ListGroup as = "ul" >
-                    <ListGroup.Item as = "li" className = "d-flex flex-row ">
-                        <div className ="bg-light border m-1">{id}</div>
-                        <div className ="m-1">{post_title}</div>
-                    </ListGroup.Item>
-                </ListGroup>                
+            <li className = { disabled ? 'postContent disabled' : 'postContent'}>
+                <div className ="m-1">{id}</div>
+                <div className ="m-1">{post_title}</div>
+        
                 <div >
-                    {comments.map(comment => 
-                        <Comment 
-                            key = {comment.comment_id}
-                            id = {comment.id}
-                            comment_title ={comment.comment_title}    
-                            comment_rate ={comment.comment_rate}             
-                        />
-                        )
-                    } 
-                    <input/>
+                    <Comments postId = {id} comments = {comments} />
+                    
+                    <input 
+                        placeholder = "Write new comment..."
+                        value = {this.state.comment}
+                        onChange = {(e) => this.setState({ comment: e.target.value })}
+                    />
+                    <button
+                        disabled={!this.state.comment}
+                        onClick={() => this.addNewComment(id, this.state.comment)}
+                    >Add </button>
                 </div>
-            </div>            
+            </li>         
         )
     }
 }

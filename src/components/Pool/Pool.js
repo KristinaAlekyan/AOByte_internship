@@ -3,29 +3,29 @@ import Post from '../Post/Post';
 import Pagination from "../Pagination/Pagination";
 import Search from "../Search/Search";
 
-const Pool = ({ posts, currentPage, postsPerPage, totalPostsQuantity, changePage, search, searchText}) => {
+const Pool = ({ posts, currentPage, postsPerPage, totalPostsQuantity, changePage, search, searchText, addComment}) => {
     return (
-        <section className = "posts">
+        <div >
             
             <Search searchText = {searchText} search = {search} />
-                <div className = "poolContainer"><b>Posts are here    </b>
-                    {posts.map(post => 
-                        <Post
-                            key = {post.id}
-                            id = {post.id}
-                            post_title = {post.post_title}    
-                            comments = {post.comments}  
-                            disabled = {post.disabled}       
+            <ul >
+                {posts.map(post => {
+                    return (
+                        <Post 
+                            key = {post.id} 
+                            post = {post} 
+                            addComment = {addComment}
                         />
-                    )}
-                </div> 
-            <Pagination                
+                    );
+                })}
+            </ul> 
+            <Pagination    
                 currentPage = {currentPage}
                 postsPerPage = {postsPerPage}
                 totalPostsQuantity = {totalPostsQuantity}
                 changePage = {changePage}
             />
-        </section>
+        </div>
     );
 };
 

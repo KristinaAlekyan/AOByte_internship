@@ -1,22 +1,23 @@
 import React from 'react';
 
 import "./comments.css";
+import Comment from "../Comment/Comment";
+
 
 class Comments extends React.Component {
 
     render() { 
-        const {comments} = this.props;
+        const {comments, postId} = this.props;
         return (
-            <div >
+            <ul >
                 {comments.map(comment => 
                     <Comment 
                         key = {comment.comment_id}
-                        id = {comment.id}
-                        comment_title ={comment.comment_title}    
-                        comment_rate ={comment.comment_rate}             
+                        postId = {postId} 
+                        comment ={comment}                
                     />
                 )} 
-            </div>            
+            </ul>            
         )
     }
 }

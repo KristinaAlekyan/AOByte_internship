@@ -5,6 +5,7 @@ import BestPosts from './components/BestPosts/BestPosts';
 import Pool from "./components/Pool/Pool";
 import postsdata from "./posts.json";
 import { addAverageRate, getCurrentPosts, getSearchedPosts } from './utils';
+import { v4 as uuid } from 'uuid';
 
 class App extends  React.Component {
     constructor(props){
@@ -35,6 +36,23 @@ class App extends  React.Component {
     search = (e) => {
         this.setState({ searchText: e.target.value });
     }
+    addComment = (id, text) => {
+        const updatedPosts = this.state.posts.map(post => {
+            if (post.id === id) {
+                const comments = [
+                    ...post.comments,
+                    {
+                        id: uuid(),
+                        comment_title: text,
+                        comment_rate: 0
+                    }
+                ];
+                return { ...post, comments };
+            } else return post;
+        });
+
+        this.setState({ posts: updatedPosts });
+    }
 
     
     render(){
@@ -57,7 +75,7 @@ class App extends  React.Component {
                     changePage = {this.changePage}
                     searchText = {this.state.searchText}
                     search = {this.search}
-
+                    addComment = {this.addComment}
                 />               
 
                 <div className = "bestPostContainer">          
