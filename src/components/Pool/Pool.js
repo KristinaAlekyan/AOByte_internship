@@ -3,27 +3,29 @@ import Post from '../Post/Post';
 import Pagination from "../Pagination/Pagination";
 import Search from "../Search/Search";
 
-const Pool = ({ posts, currentPage, postsPerPage, totalPostsQuantity, changePage, search, searchText, addComment}) => {
+const Pool = ({ posts, currentPage, totalPostsQuantity, onChangePage, onSearch, searchText, onAddComment, onAddReply}) => {
     return (
-        <div >
-            
-            <Search searchText = {searchText} search = {search} />
+        <div >            
+            <Search 
+                searchText = {searchText} 
+                onSearch = {onSearch}
+            />
             <ul >
                 {posts.map(post => {
                     return (
                         <Post 
                             key = {post.id} 
                             post = {post} 
-                            addComment = {addComment}
+                            onAddComment = {onAddComment}
+                            onAddReply = {onAddReply}
                         />
                     );
                 })}
             </ul> 
             <Pagination    
                 currentPage = {currentPage}
-                postsPerPage = {postsPerPage}
                 totalPostsQuantity = {totalPostsQuantity}
-                changePage = {changePage}
+                onChangePage = {onChangePage}
             />
         </div>
     );

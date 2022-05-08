@@ -12,32 +12,38 @@ class Post extends React.Component {
         }
     }
     addNewComment = (id, comment) => {
-        this.props.addComment(id, comment);
+        this.props.onAddComment(id, comment);
 
         this.setState({
             comment: ''
         });
     }
+    
     render() { 
         const {id, post_title, comments, disabled } = this.props.post;
+        const { onAddReply } = this.props
 
         return (
             <li className = { disabled ? 'postContent disabled' : 'postContent'}>
-                <div className ="m-1">{id}</div>
-                <div className ="m-1">{post_title}</div>
+                <div className = "m-1">{id}</div>
+                <div className = "m-1">{post_title}</div>
         
                 <div >
-                    <Comments postId = {id} comments = {comments} />
+                    <Comments 
+                        postId = {id} 
+                        comments = {comments} 
+                        onAddReply = {onAddReply} 
+                    />
                     
                     <input 
-                        placeholder = "Write new comment..."
+                        placeholder = "New comment..."
                         value = {this.state.comment}
                         onChange = {(e) => this.setState({ comment: e.target.value })}
                     />
                     <button
-                        disabled={!this.state.comment}
-                        onClick={() => this.addNewComment(id, this.state.comment)}
-                    >Add </button>
+                        disabled = {!this.state.comment}
+                        onClick = {() => this.addNewComment(id, this.state.comment)}
+                    > Add </button>
                 </div>
             </li>         
         )

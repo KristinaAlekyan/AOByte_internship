@@ -1,11 +1,13 @@
 import React from "react";
+import { v4 as uuid } from 'uuid';
 
 import './App.css';
 import BestPosts from './components/BestPosts/BestPosts';
 import Pool from "./components/Pool/Pool";
 import postsdata from "./posts.json";
 import { addAverageRate, getCurrentPosts, getSearchedPosts } from './utils';
-import { v4 as uuid } from 'uuid';
+import {postsPerPage} from "./config";
+
 
 class App extends  React.Component {
     constructor(props){
@@ -13,12 +15,11 @@ class App extends  React.Component {
         this.state = {
             posts : [],
             currentPage: 1,
-            postsPerPage: 5,
             searchText: ''
         }
     }
 
-    changePage = (pageNumber) => {
+    onChangePage = (pageNumber) => {
         this.setState({ currentPage: pageNumber }); 
     }
 
@@ -26,17 +27,18 @@ class App extends  React.Component {
         this.setState({ posts: postsdata });
     }
 
-    disablePost = (id) => {
+    onToggleDisablePost = (id) => {
         const updatedPosts = this.state.posts.map(post => {
             return (post.id === id) ? { ...post, disabled: !post.disabled } : post
         });
         this.setState({ posts: updatedPosts });
     }
 
-    search = (e) => {
+    onSearch = (e) => {
         this.setState({ searchText: e.target.value });
     }
-    addComment = (id, text) => {
+
+    onAddComment = (id, text) => {
         const updatedPosts = this.state.posts.map(post => {
             if (post.id === id) {
                 const comments = [
@@ -54,16 +56,30 @@ class App extends  React.Component {
         this.setState({ posts: updatedPosts });
     }
 
-    
+    onAddReply = (postId, commentId, reply) => {
+        const updatedPosts = this.state.posts.map(post => {
+            if (post.id === postId) {
+                const updatedComments = post.comments.map(comment => {
+                    if (comment.id === commentId) {
+                        return { ...comment, reply: reply };
+                    } else {
+                        return comment;
+                    }
+                });
+
+                return { ...post, comments: updatedComments };
+            } else {
+                return post;
+            }
+        });
+
+        this.setState({ posts: updatedPosts });
+    }
+
     render(){
-        const postsWithAvarageRate = addAverageRate(this.state.posts);
-         
+        const postsWithAvarageRate = addAverageRate(this.state.posts);         
         const searchedPostsOrComments = getSearchedPosts(postsWithAvarageRate, this.state.searchText);
-        const currentPosts = getCurrentPosts(
-            this.state.currentPage,
-            this.state.postsPerPage,
-            searchedPostsOrComments
-        );
+        const currentPosts = getCurrentPosts(this.state.currentPage, postsPerPage, searchedPostsOrComments);    
 
         return (
             <div className = "appContainer"> 
@@ -71,21 +87,21 @@ class App extends  React.Component {
                     posts = {currentPosts}                    
                     totalPostsQuantity = {searchedPostsOrComments.length}
                     currentPage = {this.state.currentPage}
-                    postsPerPage = {this.state.postsPerPage}
-                    changePage = {this.changePage}
+                    onChangePage = {this.onChangePage}
                     searchText = {this.state.searchText}
-                    search = {this.search}
-                    addComment = {this.addComment}
+                    onSearch = {this.onSearch}
+                    onAddComment = {this.onAddComment}
+                    onAddReply = {this.onAddReply}
                 />               
 
                 <div className = "bestPostContainer">          
                     <BestPosts  
                         posts = {currentPosts}                  
-                        disablePost ={this.disablePost}
+                        onToggleDisablePost ={this.onToggleDisablePost}
                     />
                     <BestPosts
                         posts = {currentPosts}                  
-                        disablePost ={this.disablePost}
+                        onToggleDisablePost ={this.onToggleDisablePost}
                     />  
                 </div>       
             </div>

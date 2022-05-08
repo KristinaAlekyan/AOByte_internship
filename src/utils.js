@@ -3,7 +3,7 @@ export function addAverageRate(data) {
         let sum = 0;
         post.comments.forEach(comment => sum += comment.comment_rate);
 
-        let averageRate = (sum / post.comments.length);
+        let averageRate = (sum / post.comments.length).toFixed(2);
         return { ...post, averageRate };
     });
 }
@@ -42,4 +42,13 @@ export function getSearchedPosts(posts, searchText) {
                 return comment.comment_title.toUpperCase().includes(searchText.toUpperCase());
             })
     });
+}
+export function getCommentColorByRate(rate) {
+    if (rate >= 4) {
+        return 'green';
+    } else if (rate >= 3) {
+        return 'yellow';
+    } else if (rate < 3) {
+        return 'red';
+    } 
 }

@@ -5,16 +5,16 @@ import Comment from "../Comment/Comment";
 
 
 class Comments extends React.Component {
-
     render() { 
-        const {comments, postId} = this.props;
+        const {comments, postId, onAddReply} = this.props;
         return (
             <ul >
                 {comments.map(comment => 
                     <Comment 
-                        key = {comment.comment_id}
+                        key = {comment.id}
                         postId = {postId} 
-                        comment ={comment}                
+                        comment = {comment} 
+                        onAddReply = {onAddReply}               
                     />
                 )} 
             </ul>            

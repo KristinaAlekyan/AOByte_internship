@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
 import { BsFillCartXFill,BsFillArrowUpCircleFill, BsFillArrowDownCircleFill  } from "react-icons/bs";
 import ListGroup from 'react-bootstrap/ListGroup';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -27,15 +26,16 @@ class BestPosts extends React.Component {
         }
         
         updatedList.push({
-            id: uuid(),
-            listId: maximumRatePost.id,
+            id: maximumRatePost.id,
             post_title: maximumRatePost.post_title,
             rate: maximumRatePost.averageRate
         });
         
         this.setState({
             list: updatedList
-        }, () => this.props.disablePost(maximumRatePost.id));
+        });
+
+        this.props.onToggleDisablePost(maximumRatePost.id);
     }
     
     deletPost = (id) => {
@@ -45,7 +45,7 @@ class BestPosts extends React.Component {
         const updatedList = list.filter(post => post.id !== id);
         this.setState({list: updatedList });
 
-        this.props.disablePost(removed.listId);
+        this.props.onToggleDisablePost(removed.id);
     }
 
     sort = () => {
@@ -57,7 +57,7 @@ class BestPosts extends React.Component {
         const sortedList = sortPostsList(this.state);
 
         return (
-            <div className='bestPostsContainer'>                
+            <div className = 'bestPostsContainer'>                
                 <button
                     type = "button"
                     className = 'btn'

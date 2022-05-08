@@ -1,13 +1,13 @@
 import './search.css';
 
-const Search = ({ searchText, search }) => {
+const Search = ({ searchText, onSearch }) => {
     return (
         <section >
-            <label >Search :</label>
+            <label > Search </label>
             <input
                 id = "search"
                 value = {searchText}
-                onChange = {search}
+                onChange = {onSearch}
             />
         </section>
     );

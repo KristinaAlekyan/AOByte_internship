@@ -1,6 +1,7 @@
 import './pagination.css';
+import {postsPerPage} from "../../config";
 
-const Pagination = ({ postsPerPage, totalPostsQuantity, currentPage, changePage }) => {
+const Pagination = ({ totalPostsQuantity, currentPage, onChangePage }) => {
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalPostsQuantity / postsPerPage); i++) {
@@ -8,14 +9,14 @@ const Pagination = ({ postsPerPage, totalPostsQuantity, currentPage, changePage 
     }
 
     return (
-        <ul className="pagination">
+        <ul className = "pagination">
             {pageNumbers.map(number => {
                 return (
-                    <li key={number} className="paginationItem">
+                    <li key = {number} className = "paginationItem">
                         <button
                             type = "button"
                             className = { number === currentPage ? ('paginationButton currentPage'):('paginationButton')}
-                            onClick={() => changePage(number)}
+                            onClick = {() => onChangePage(number)}
                         >
                             {number}
                         </button>
