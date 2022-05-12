@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import './App.css';
 import BestPosts from './components/BestPosts/BestPosts';
 import Pool from "./components/Pool/Pool";
+import Validator from "./components/Validator/Validator";
 import postsdata from "./posts.json";
 import { addAverageRate, getCurrentPosts, getSearchedPosts } from './utils';
 import {postsPerPage} from "./config";
@@ -103,7 +104,8 @@ class App extends  React.Component {
                         posts = {currentPosts}                  
                         onToggleDisablePost ={this.onToggleDisablePost}
                     />  
-                </div>       
+                    <Validator/>                    
+                </div>  
             </div>
         );
     }
