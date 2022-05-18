@@ -31,7 +31,7 @@ class Validator extends React.Component {
             isValid: null
         }
     }
-    onSaveform = (event) => {
+    onFormSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.target);               
         const formObject = Object.fromEntries(data.entries());    
@@ -60,7 +60,7 @@ class Validator extends React.Component {
         }
       };
     onChangeValue = (value, name) => {
-        const inputsValues = this.state.inputsValues;
+        const inputsValues = {...this.state.inputsValues};
         inputsValues[name] = value;
         this.setState({
             inputsValues: inputsValues,
@@ -76,7 +76,7 @@ class Validator extends React.Component {
         }
         return (
             <div>
-                <form onSubmit = {(e) => this.onSaveform(e)}>
+                <form onSubmit = {(e) => this.onFormSubmit(e)}>
                     {Object.values(inputData).map((input, index) => (
                         <CustomInput
                             key = {index}
